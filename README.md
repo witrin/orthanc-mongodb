@@ -10,7 +10,7 @@ The repository contains two plugins to store the data in MongoDB database.
 This chapter describes the process of installation with not too much details and not necessarily contain all how-to to resolve possible problems that might appear.
 
 ### Prerequisites
-- mongodb 3.6+ server 
+- mongodb 3.6+ server
 - Install jsoncpp
 - Install/build mongoc library http://mongoc.org/libmongoc/current/installing.html
 - Install/build mongo-cxx lib https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/installation/
@@ -140,8 +140,8 @@ Add plugins in the Ortahc json configuration file:
   ],
   // MongoDB plugin confihuration section:
   "MongoDB" : {
-    "EnableIndex" : true, // false to use default SQLite 
-    "EnableStorage" : true, // false to use default SQLite 
+    "EnableIndex" : true, // false to use default SQLite
+    "EnableStorage" : true, // false to use default SQLite
     "ConnectionUri" : "mongodb://localhost:27017/orthanc_db",
     "ChunkSize" : 261120
   },
@@ -168,14 +168,14 @@ Also it's possible to configure the plugin with separate config options:
 
 **NOTE: Setting up the ConnectionUri overrides the host, port, database params. So if the ConnectionUri is set, the other parameters except the ChunkSize will be ignored.**
 
-Testing is described with more details in [here](doc/testing.md)
+Testing is described with more details in [here](docs/testing.md)
 
 ## Known Issues:
 
 1. ConnectionUri must contain the database name due to the [bug in the mongocxx driver CXX-1187](https://jira.mongodb.org/browse/CXX-1187)
-2. The Orthanc server should be compiled in Release or RelWithDebInfo mode to turn off assertions. There are asserts like that 
-   `./OrthancServer/ServerIndex.cpp:      assert(index_.currentStorageSize_ == index_.db_.GetTotalCompressedSize());``` it involves full collection scan 
-   to aggregate the total AttachedFiles significantly slows the performance down. 
+2. The Orthanc server should be compiled in Release or RelWithDebInfo mode to turn off assertions. There are asserts like that
+   `./OrthancServer/ServerIndex.cpp:      assert(index_.currentStorageSize_ == index_.db_.GetTotalCompressedSize());``` it involves full collection scan
+   to aggregate the total AttachedFiles significantly slows the performance down.
 
 
 
