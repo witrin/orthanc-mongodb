@@ -27,6 +27,10 @@ set(MONGO_CXX_BINARY_DIR  "${CMAKE_BINARY_DIR}/${MONGO_CXX_PROJECT}${BUILD_DIR_P
 set(MONGO_CXX_INSTALL_DIR "${CMAKE_BINARY_DIR}/${MONGO_CXX_PROJECT}${INSTALL_DIR_POSTFIX}")
 set(MONGO_CXX_CONFIG_DIR  "${CMAKE_BINARY_DIR}/${MONGO_CXX_PROJECT}${CONFIGURATION_DIR_POSTFIX}")
 
+# GoogleTest variables
+set(GOOGLE_TEST_PROJECT "googletest")
+set(GOOGLE_TEST_VERSION "release-1.10.0")
+
 string(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_UPPERCASE)
 
 # Macroses
@@ -69,6 +73,10 @@ IF (MSVC AND LINK_STATIC_LIBS)
         string(REPLACE "/MDd" "/MTd" ${CompilerFlag} "${${CompilerFlag}}")
     endforeach()
 ENDIF ()
+
+# Install GoogleTest
+
+include(CMake/googletest.txt.in)
 
 # Install JsonCpp
 

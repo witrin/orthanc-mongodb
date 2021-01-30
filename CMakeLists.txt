@@ -128,9 +128,9 @@ include_directories ("${PROJECT_SOURCE_DIR}/StoragePlugin")
 include_directories ("${ORTHANC_ROOT}/OrthancServer/Plugins/Include")
 ##################################################################
 add_definitions(
-	-DHAS_ORTHANC_EXCEPTION=1 
-	-DORTHANC_ENABLE_LOGGING=1 
-	-DORTHANC_ENABLE_LOGGING_PLUGIN=1 
+	-DHAS_ORTHANC_EXCEPTION=1
+	-DORTHANC_ENABLE_LOGGING=1
+	-DORTHANC_ENABLE_LOGGING_PLUGIN=1
 	-DORTHANC_ENABLE_LOGGING_STDIO=1
   -DORTHANC_PLUGINS_HAS_DATABASE_CONSTRAINT=1
 	-DORTHANC_OPTIMAL_VERSION_MAJOR=${ORTHANC_OPTIMAL_VERSION_MAJOR}
@@ -183,13 +183,18 @@ IF (BUILD_TESTS)
     ENDIF()
   ENDIF()
 
-  IF (UNIX)
+  IF (UNIX AND NOT AUTO_INSTALL_DEPENDENCIES)
       pkg_search_module(GTEST REQUIRED gtest)
       include_directories(${GTEST_INCLUDE_DIRS})
   ENDIF()
 
   include_directories ("${PROJECT_SOURCE_DIR}/Tests")
-  find_library(GOOGLE_TEST_LIB gtest)
+
+  IF (AUTO_INSTALL_DEPENDENCIES)
+    set(GOOGLE_TEST_LIB "gtest")
+  ELSE ()
+    find_library(GOOGLE_TEST_LIB gtest)
+  ENDIF()
 
   set(TEST_SOURCES_INDEX
         "Tests/IndexTest.cpp"
